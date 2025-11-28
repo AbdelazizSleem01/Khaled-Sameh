@@ -171,14 +171,14 @@ export default function CoursesManager() {
 
   if (status === 'loading' || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-coffee-light to-amber-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-coffee-light to-amber-50 p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-center"
         >
           <div className="loading loading-spinner loading-lg text-coffee-brown mb-4"></div>
-          <p className="text-coffee-dark">Loading Courses...</p>
+          <p className="text-coffee-dark text-lg">Loading Courses...</p>
         </motion.div>
       </div>
     )
@@ -208,84 +208,95 @@ export default function CoursesManager() {
   return (
     <div className="min-h-screen bg-linear-to-br from-coffee-light via-amber-50 to-coffee-light">
       {/* Header */}
-     
-        <div className=" mx-auto px-14 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <motion.button
-                whileHover={{ scale: 1.05, x: -5 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => router.push('/admin/dashboard')}
-                className="btn btn-circle hover:bg-coffee-light text-coffee-dark"
-              >
-                <FaArrowLeft />
-
-              </motion.button>
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-coffee-brown rounded-lg">
-                  <FaGraduationCap className="text-white text-xl" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-coffee-dark">Courses Management</h1>
-                  <p className="text-coffee-medium">Manage your coffee courses</p>
-                </div>
+      <div className="mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+          
+          {/* الجزء الأيسر: زر الرجوع والعنوان */}
+          <div className="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto">
+            <motion.button
+              whileHover={{ scale: 1.05, x: -5 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.push('/admin/dashboard')}
+              className="btn btn-circle hover:bg-coffee-light text-coffee-dark shrink-0 w-10 h-10 sm:w-12 sm:h-12"
+            >
+              <FaArrowLeft className="text-sm sm:text-base" />
+            </motion.button>
+            
+            <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+              <div className="p-1.5 sm:p-2 bg-coffee-brown rounded-lg shrink-0">
+                <FaGraduationCap className="text-white text-base sm:text-lg" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-coffee-dark truncate">
+                  Courses Management
+                </h1>
+                <p className="text-coffee-medium text-xs sm:text-sm truncate">
+                  Manage your coffee courses
+                </p>
               </div>
             </div>
-
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="text-right"
-            >
-              <div className="stat-value text-coffee-brown text-center">{courses.length}</div>
-              <div className="stat-desc text-coffee-medium">Total Courses</div>
-            </motion.div>
           </div>
+
+          {/* الجزء الأيمن: إحصائيات */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="text-center sm:text-right w-full sm:w-auto mt-2 sm:mt-0"
+          >
+            <div className="flex sm:flex-col items-center justify-between sm:justify-start gap-2">
+              <div className="stat-value text-coffee-brown text-base sm:text-lg lg:text-xl">
+                {courses.length}
+              </div>
+              <div className="stat-desc text-coffee-medium text-xs sm:text-sm whitespace-nowrap">
+                Total Courses
+              </div>
+            </div>
+          </motion.div>
         </div>
-    
+      </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-6xl mx-auto p-3 sm:p-4 lg:p-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-8"
+          className="space-y-4 sm:space-y-6 lg:space-y-8"
         >
           {/* Add/Edit Form */}
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -2 }}
-            className="card bg-white shadow-coffee-lg border border-coffee-light"
+            className="card bg-white shadow-lg border border-coffee-light rounded-xl sm:rounded-2xl"
           >
-            <div className="card-body p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-coffee-brown rounded-full">
+            <div className="card-body p-4 sm:p-6 lg:p-8">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                <div className="p-1.5 sm:p-2 bg-coffee-brown rounded-full shrink-0">
                   {editingCourse ? (
-                    <FaEdit className="text-white text-lg" />
+                    <FaEdit className="text-white text-sm sm:text-base" />
                   ) : (
-                    <FaPlus className="text-white text-lg" />
+                    <FaPlus className="text-white text-sm sm:text-base" />
                   )}
                 </div>
-                <h2 className="card-title text-2xl text-coffee-dark">
+                <h2 className="card-title text-lg sm:text-xl lg:text-2xl text-coffee-dark truncate">
                   {editingCourse ? 'Edit Course' : 'Add New Course'}
                 </h2>
               </div>
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid grid-cols-1 gap-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 gap-4 sm:gap-6">
                   {/* Course Name */}
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text text-coffee-dark font-semibold text-lg flex items-center gap-2">
-                        <FaBook />
+                    <label className="label p-0 mb-2 sm:mb-3">
+                      <span className="label-text text-coffee-dark font-semibold text-base sm:text-lg flex items-center gap-1 sm:gap-2">
+                        <FaBook className="shrink-0" />
                         Course Name *
                       </span>
                     </label>
                     <input
                       type="text"
                       {...register('name')}
-                      className={`input input-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-lg py-3 ${errors.name ? 'input-error border-2' : ''
+                      className={`input input-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-sm sm:text-base py-2 sm:py-3 rounded-lg ${errors.name ? 'input-error border-2' : ''
                         }`}
                       placeholder="e.g., Latte Art Masterclass, Coffee Brewing Fundamentals"
                     />
@@ -295,9 +306,10 @@ export default function CoursesManager() {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="text-red-500 text-sm mt-2 flex items-center gap-2"
+                          className="text-red-500 text-xs sm:text-sm mt-1 sm:mt-2 flex items-center gap-1 sm:gap-2"
                         >
-                          ⚠️ {errors.name.message}
+                          <span className="shrink-0">⚠️</span>
+                          {errors.name.message}
                         </motion.p>
                       )}
                     </AnimatePresence>
@@ -305,18 +317,18 @@ export default function CoursesManager() {
 
                   {/* Course Description */}
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text text-coffee-dark font-semibold text-lg flex items-center gap-2">
-                        <FaChalkboardTeacher />
+                    <label className="label p-0 mb-2 sm:mb-3">
+                      <span className="label-text text-coffee-dark font-semibold text-base sm:text-lg flex items-center gap-1 sm:gap-2">
+                        <FaChalkboardTeacher className="shrink-0" />
                         Course Description *
                       </span>
                     </label>
                     <textarea
                       {...register('description')}
-                      className={`textarea textarea-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-lg py-3 min-h-[120px] ${errors.description ? 'textarea-error border-2' : ''
+                      className={`textarea textarea-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-sm sm:text-base py-2 sm:py-3 rounded-lg min-h-[100px] sm:min-h-[120px] ${errors.description ? 'textarea-error border-2' : ''
                         }`}
                       placeholder="Describe the course content, objectives, and what students will learn..."
-                      rows={4}
+                      rows={3}
                     />
                     <AnimatePresence>
                       {errors.description && (
@@ -324,38 +336,36 @@ export default function CoursesManager() {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="text-red-500 text-sm mt-2 flex items-center gap-2"
+                          className="text-red-500 text-xs sm:text-sm mt-1 sm:mt-2 flex items-center gap-1 sm:gap-2"
                         >
-                          ⚠️ {errors.description.message}
+                          <span className="shrink-0">⚠️</span>
+                          {errors.description.message}
                         </motion.p>
                       )}
                     </AnimatePresence>
-                    <label className="label">
-                      <span className="label-text-alt text-coffee-medium">
-                        Provide a comprehensive description of the course
-                      </span>
-                    </label>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pt-3 sm:pt-4">
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="btn btn-primary btn-lg flex items-center gap-2 bg-coffee-brown border-coffee-brown hover:bg-coffee-dark"
+                    className="btn btn-primary flex items-center gap-1 sm:gap-2 bg-coffee-brown border-coffee-brown hover:bg-coffee-dark text-white text-sm sm:text-base py-2 sm:py-3 rounded-lg order-2 sm:order-1"
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="loading loading-spinner loading-sm"></div>
-                        Saving...
+                        <div className="loading loading-spinner loading-xs sm:loading-sm"></div>
+                        <span className="truncate">Saving...</span>
                       </>
                     ) : (
                       <>
-                        <FaSave />
-                        {editingCourse ? 'Update Course' : 'Add Course'}
+                        <FaSave className="shrink-0" />
+                        <span className="truncate">
+                          {editingCourse ? 'Update Course' : 'Add Course'}
+                        </span>
                       </>
                     )}
                   </motion.button>
@@ -369,10 +379,10 @@ export default function CoursesManager() {
                       }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="btn btn-outline btn-lg border-coffee-medium text-coffee-dark hover:bg-coffee-light flex items-center gap-2"
+                      className="btn btn-outline border-coffee-medium text-coffee-dark hover:bg-coffee-light flex items-center gap-1 sm:gap-2 text-sm sm:text-base py-2 sm:py-3 rounded-lg order-1 sm:order-2"
                     >
-                      <FaTimes />
-                      Cancel
+                      <FaTimes className="shrink-0" />
+                      <span className="truncate">Cancel</span>
                     </motion.button>
                   )}
                 </div>
@@ -383,19 +393,19 @@ export default function CoursesManager() {
           {/* Courses List */}
           <motion.div
             variants={itemVariants}
-            className="card bg-white shadow-coffee-lg border border-coffee-light"
+            className="card bg-white shadow-lg border border-coffee-light rounded-xl sm:rounded-2xl"
           >
-            <div className="card-body p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-coffee-brown rounded-full">
-                    <FaListAlt className="text-white text-lg" />
+            <div className="card-body p-4 sm:p-6 lg:p-8">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-0">
+                  <div className="p-1.5 sm:p-2 bg-coffee-brown rounded-full shrink-0">
+                    <FaListAlt className="text-white text-sm sm:text-base" />
                   </div>
-                  <h2 className="card-title text-2xl text-coffee-dark">
+                  <h2 className="card-title text-lg sm:text-xl lg:text-2xl text-coffee-dark whitespace-nowrap">
                     Courses List
                   </h2>
                 </div>
-                <div className="badge badge-primary badge-lg bg-coffee-brown border-coffee-brown text-white p-4">
+                <div className="badge bg-coffee-brown border-coffee-brown text-white px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm whitespace-nowrap">
                   {courses.length} {courses.length === 1 ? 'Course' : 'Courses'}
                 </div>
               </div>
@@ -406,81 +416,140 @@ export default function CoursesManager() {
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12"
+                      className="text-center py-8 sm:py-12"
                     >
-                      <div className="text-6xl mb-4">📚</div>
-                      <h3 className="text-xl text-coffee-dark mb-2">No Courses Yet</h3>
-                      <p className="text-coffee-medium">
+                      <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">📚</div>
+                      <h3 className="text-lg sm:text-xl text-coffee-dark mb-1 sm:mb-2">No Courses Yet</h3>
+                      <p className="text-coffee-medium text-sm sm:text-base">
                         Add your first course using the form above
                       </p>
                     </motion.div>
                   ) : (
-                    <motion.table
-                      variants={containerVariants}
-                      initial="hidden"
-                      animate="visible"
-                      className="table table-zebra w-full"
-                    >
-                      <thead>
-                        <tr className="bg-coffee-light">
-                          <th className="text-coffee-dark font-bold text-lg">Course Name</th>
-                          <th className="text-coffee-dark font-bold text-lg">Description</th>
-                          <th className="text-coffee-dark font-bold text-lg">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                    <div className="block sm:hidden">
+                      {/* Mobile View - Cards */}
+                      <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="space-y-3"
+                      >
                         {courses.map((course, index) => (
-                          <motion.tr
-                            key={course._id}
+                          <motion.div
+                            key={course._id || `course-mobile-${index}`}
                             variants={itemVariants}
-                            whileHover={{
-                              backgroundColor: "rgba(250, 243, 228, 0.5)",
-                              scale: 1.01
-                            }}
-                            className="border-b border-coffee-light"
+                            whileHover={{ scale: 1.01 }}
+                            className="bg-coffee-light/50 rounded-lg p-3 sm:p-4 border border-coffee-light"
                           >
-                            <td className="font-semibold text-coffee-dark text-lg py-4">
-                              <div className="flex items-center gap-3">
-                                <FaCheckCircle className="text-green-500" />
-                                <div>
-                                  <div className="font-bold">{course.name}</div>
-                                </div>
+                            <div className="flex items-start gap-3 mb-2">
+                              <FaCheckCircle className="text-green-500 mt-1 shrink-0" />
+                              <div className="min-w-0 flex-1">
+                                <h3 className="font-bold text-coffee-dark text-sm sm:text-base truncate">
+                                  {course.name}
+                                </h3>
+                                <p className="text-coffee-medium text-xs sm:text-sm line-clamp-2 mt-1">
+                                  {course.description}
+                                </p>
                               </div>
-                            </td>
-                            <td className="text-coffee-dark py-4">
-                              <div className="max-w-md">
-                                {course.description}
-                              </div>
-                            </td>
-                            <td className="py-4">
-                              <div className="flex gap-2">
-                                <motion.button
-                                  onClick={() => {
-                                    setEditingCourse(course)
-                                    reset(course)
-                                  }}
-                                  whileHover={{ scale: 1.05 }}
-                                  whileTap={{ scale: 0.95 }}
-                                  className="btn btn-sm btn-outline border-coffee-brown text-coffee-dark hover:bg-coffee-brown hover:text-white flex items-center gap-2"
-                                >
-                                  <FaEdit />
-                                  Edit
-                                </motion.button>
-                                <motion.button
-                                  onClick={() => course._id && deleteCourse(course._id)}
-                                  whileHover={{ scale: 1.05 }}
-                                  whileTap={{ scale: 0.95 }}
-                                  className="btn btn-sm btn-error bg-red-500 border-red-500 hover:bg-red-600 text-white flex items-center gap-2"
-                                >
-                                  <FaTrash />
-                                  Delete
-                                </motion.button>
-                              </div>
-                            </td>
-                          </motion.tr>
+                            </div>
+                            <div className="flex gap-2 justify-end">
+                              <motion.button
+                                onClick={() => {
+                                  setEditingCourse(course)
+                                  reset(course)
+                                }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="btn btn-xs sm:btn-sm btn-outline border-coffee-brown text-coffee-dark hover:bg-coffee-brown hover:text-white flex items-center gap-1"
+                              >
+                                <FaEdit className="text-xs" />
+                                Edit
+                              </motion.button>
+                              <motion.button
+                                onClick={() => course._id && deleteCourse(course._id)}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="btn btn-xs sm:btn-sm bg-red-500 border-red-500 hover:bg-red-600 text-white flex items-center gap-1"
+                              >
+                                <FaTrash className="text-xs" />
+                                Delete
+                              </motion.button>
+                            </div>
+                          </motion.div>
                         ))}
-                      </tbody>
-                    </motion.table>
+                      </motion.div>
+                    </div>
+                  )}
+                  
+                  {/* Desktop View - Table */}
+                  {courses.length > 0 && (
+                    <div className="hidden sm:block">
+                      <motion.table
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="table table-zebra w-full"
+                      >
+                        <thead>
+                          <tr className="bg-coffee-light">
+                            <th className="text-coffee-dark font-bold text-base sm:text-lg">Course Name</th>
+                            <th className="text-coffee-dark font-bold text-base sm:text-lg">Description</th>
+                            <th className="text-coffee-dark font-bold text-base sm:text-lg">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {courses.map((course, index) => (
+                            <motion.tr
+                              key={course._id || `course-desktop-${index}`}
+                              variants={itemVariants}
+                              whileHover={{
+                                backgroundColor: "rgba(250, 243, 228, 0.5)",
+                                scale: 1.01
+                              }}
+                              className="border-b border-coffee-light"
+                            >
+                              <td className="font-semibold text-coffee-dark text-base sm:text-lg py-3 sm:py-4">
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                  <FaCheckCircle className="text-green-500 shrink-0" />
+                                  <div className="truncate">
+                                    {course.name}
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="text-coffee-dark py-3 sm:py-4">
+                                <div className="max-w-md truncate">
+                                  {course.description}
+                                </div>
+                              </td>
+                              <td className="py-3 sm:py-4">
+                                <div className="flex gap-1 sm:gap-2">
+                                  <motion.button
+                                    onClick={() => {
+                                      setEditingCourse(course)
+                                      reset(course)
+                                    }}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="btn btn-sm btn-outline border-coffee-brown text-coffee-dark hover:bg-coffee-brown hover:text-white flex items-center gap-1 sm:gap-2"
+                                  >
+                                    <FaEdit className="text-xs sm:text-sm" />
+                                    Edit
+                                  </motion.button>
+                                  <motion.button
+                                    onClick={() => course._id && deleteCourse(course._id)}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="btn btn-sm bg-red-500 border-red-500 hover:bg-red-600 text-white flex items-center gap-1 sm:gap-2"
+                                  >
+                                    <FaTrash className="text-xs sm:text-sm" />
+                                    Delete
+                                  </motion.button>
+                                </div>
+                              </td>
+                            </motion.tr>
+                          ))}
+                        </tbody>
+                      </motion.table>
+                    </div>
                   )}
                 </AnimatePresence>
               </div>

@@ -178,8 +178,8 @@ export default function MessagesPage() {
         const badge = badges[status as keyof typeof badges]
         const Icon = badge.icon
         return (
-            <span className={`badge border ${badge.color} gap-2 font-semibold`}>
-                <Icon className="text-sm" /> {badge.text}
+            <span className={`badge border ${badge.color} gap-1 sm:gap-2 font-semibold text-xs sm:text-sm`}>
+                <Icon className="text-xs sm:text-sm" /> {badge.text}
             </span>
         )
     }
@@ -197,7 +197,7 @@ export default function MessagesPage() {
 
     if (status === 'loading' || loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-coffee-light to-amber-50">
+            <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-coffee-light to-amber-50 p-4">
                 <div className="text-center">
                     <div className="loading loading-spinner loading-lg text-coffee-brown mb-4"></div>
                     <p className="text-coffee-dark text-lg">Loading Messages...</p>
@@ -214,19 +214,19 @@ export default function MessagesPage() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-coffee-light to-amber-50 p-4 lg:p-8">
+        <div className="min-h-screen bg-linear-to-br from-coffee-light to-amber-50 p-3 sm:p-4 lg:p-6 xl:p-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4"
+                    className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8"
                 >
-                    <div>
-                        <h1 className="text-4xl lg:text-5xl font-bold text-coffee-dark mb-2">
+                    <div className="flex-1 min-w-0">
+                        <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-coffee-dark mb-2 sm:mb-3 leading-tight">
                             Contact Messages
                         </h1>
-                        <p className="text-coffee-medium text-lg">
+                        <p className="text-coffee-medium text-base sm:text-lg lg:text-xl leading-relaxed">
                             Manage and respond to messages from your visitors
                         </p>
                     </div>
@@ -234,10 +234,10 @@ export default function MessagesPage() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => router.push('/admin/dashboard')}
-                        className="btn bg-coffee-brown hover:bg-coffee-dark text-white border-none"
+                        className="btn bg-coffee-brown hover:bg-coffee-dark text-white border-none w-full sm:w-auto flex items-center justify-center sm:justify-start text-sm sm:text-base"
                     >
-                        <FaIcons.FaArrowLeft className="mr-2" />
-                        Back to Dashboard
+                        <FaIcons.FaArrowLeft className="mr-2 shrink-0" />
+                        <span className="truncate">Back to Dashboard</span>
                     </motion.button>
                 </motion.div>
 
@@ -248,20 +248,20 @@ export default function MessagesPage() {
                             initial={{ opacity: 0, y: -50 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -50 }}
-                            className="fixed top-6 right-6 z-50 max-w-sm"
+                            className="fixed top-4 sm:top-6 right-3 sm:right-6 z-50 max-w-xs sm:max-w-sm mx-2"
                         >
                             <div className={`alert backdrop-blur-sm border-2 ${
                                 notification.type === 'success' 
                                     ? 'bg-green-500/40 border-green-400/50 text-green-100' 
                                     : 'bg-red-500/40 border-red-400/50 text-red-100'
-                            } shadow-lg`}>
-                                <div className="flex items-center gap-3">
+                            } shadow-lg rounded-lg sm:rounded-xl`}>
+                                <div className="flex items-center gap-2 sm:gap-3">
                                     {notification.type === 'success' ? (
-                                        <FaIcons.FaCheckCircle className="text-xl text-green-400" />
+                                        <FaIcons.FaCheckCircle className="text-lg sm:text-xl text-green-400 shrink-0" />
                                     ) : (
-                                        <FaIcons.FaExclamationTriangle className="text-xl text-red-400" />
+                                        <FaIcons.FaExclamationTriangle className="text-lg sm:text-xl text-red-400 shrink-0" />
                                     )}
-                                    <span className="font-semibold">{notification.message}</span>
+                                    <span className="font-semibold text-sm sm:text-base">{notification.message}</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -272,21 +272,21 @@ export default function MessagesPage() {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+                    className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8"
                 >
                     {/* Total Messages */}
                     <motion.div
-                        whileHover={{ y: -5, scale: 1.02 }}
-                        className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee rounded-2xl"
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee rounded-xl sm:rounded-2xl"
                     >
-                        <div className="card-body p-6">
+                        <div className="card-body p-3 sm:p-4 lg:p-6">
                             <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-coffee-medium text-sm font-semibold">Total Messages</p>
-                                    <p className="text-3xl font-bold text-coffee-dark">{stats.total}</p>
+                                <div className="min-w-0">
+                                    <p className="text-coffee-medium text-xs sm:text-sm font-semibold truncate">Total Messages</p>
+                                    <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-coffee-dark">{stats.total}</p>
                                 </div>
-                                <div className="w-12 h-12 bg-coffee-brown rounded-xl flex items-center justify-center">
-                                    <FaIcons.FaEnvelope className="text-white text-xl" />
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-coffee-brown rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                    <FaIcons.FaEnvelope className="text-white text-sm sm:text-base lg:text-xl" />
                                 </div>
                             </div>
                         </div>
@@ -294,17 +294,17 @@ export default function MessagesPage() {
 
                     {/* New Messages */}
                     <motion.div
-                        whileHover={{ y: -5, scale: 1.02 }}
-                        className="card bg-white/80 backdrop-blur-sm border-2 border-blue-200 shadow-coffee rounded-2xl"
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        className="card bg-white/80 backdrop-blur-sm border-2 border-blue-200 shadow-coffee rounded-xl sm:rounded-2xl"
                     >
-                        <div className="card-body p-6">
+                        <div className="card-body p-3 sm:p-4 lg:p-6">
                             <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-blue-600 text-sm font-semibold">New Messages</p>
-                                    <p className="text-3xl font-bold text-blue-600">{stats.new}</p>
+                                <div className="min-w-0">
+                                    <p className="text-blue-600 text-xs sm:text-sm font-semibold truncate">New Messages</p>
+                                    <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600">{stats.new}</p>
                                 </div>
-                                <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
-                                    <FaIcons.FaEnvelope className="text-white text-xl" />
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-blue-500 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                    <FaIcons.FaEnvelope className="text-white text-sm sm:text-base lg:text-xl" />
                                 </div>
                             </div>
                         </div>
@@ -312,17 +312,17 @@ export default function MessagesPage() {
 
                     {/* Read Messages */}
                     <motion.div
-                        whileHover={{ y: -5, scale: 1.02 }}
-                        className="card bg-white/80 backdrop-blur-sm border-2 border-cyan-200 shadow-coffee rounded-2xl"
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        className="card bg-white/80 backdrop-blur-sm border-2 border-cyan-200 shadow-coffee rounded-xl sm:rounded-2xl"
                     >
-                        <div className="card-body p-6">
+                        <div className="card-body p-3 sm:p-4 lg:p-6">
                             <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-cyan-600 text-sm font-semibold">Read Messages</p>
-                                    <p className="text-3xl font-bold text-cyan-600">{stats.read}</p>
+                                <div className="min-w-0">
+                                    <p className="text-cyan-600 text-xs sm:text-sm font-semibold truncate">Read Messages</p>
+                                    <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-cyan-600">{stats.read}</p>
                                 </div>
-                                <div className="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center">
-                                    <FaIcons.FaEnvelopeOpen className="text-white text-xl" />
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-cyan-500 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                    <FaIcons.FaEnvelopeOpen className="text-white text-sm sm:text-base lg:text-xl" />
                                 </div>
                             </div>
                         </div>
@@ -330,17 +330,17 @@ export default function MessagesPage() {
 
                     {/* Replied Messages */}
                     <motion.div
-                        whileHover={{ y: -5, scale: 1.02 }}
-                        className="card bg-white/80 backdrop-blur-sm border-2 border-green-200 shadow-coffee rounded-2xl"
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        className="card bg-white/80 backdrop-blur-sm border-2 border-green-200 shadow-coffee rounded-xl sm:rounded-2xl"
                     >
-                        <div className="card-body p-6">
+                        <div className="card-body p-3 sm:p-4 lg:p-6">
                             <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-green-600 text-sm font-semibold">Replied</p>
-                                    <p className="text-3xl font-bold text-green-600">{stats.replied}</p>
+                                <div className="min-w-0">
+                                    <p className="text-green-600 text-xs sm:text-sm font-semibold truncate">Replied</p>
+                                    <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-600">{stats.replied}</p>
                                 </div>
-                                <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                                    <FaIcons.FaCheckCircle className="text-white text-xl" />
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-green-500 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                    <FaIcons.FaCheckCircle className="text-white text-sm sm:text-base lg:text-xl" />
                                 </div>
                             </div>
                         </div>
@@ -351,19 +351,19 @@ export default function MessagesPage() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee rounded-2xl mb-8"
+                    className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee rounded-xl sm:rounded-2xl mb-6 sm:mb-8"
                 >
-                    <div className="card-body p-6">
-                        <div className="flex flex-col lg:flex-row gap-6">
+                    <div className="card-body p-4 sm:p-6">
+                        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
                             {/* Search */}
                             <div className="flex-1">
-                                <label className="block text-coffee-dark font-semibold mb-3">Search Messages</label>
+                                <label className="block text-coffee-dark font-semibold mb-2 sm:mb-3 text-sm sm:text-base">Search Messages</label>
                                 <div className="relative">
-                                    <FaIcons.FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-coffee-medium z-10" />
+                                    <FaIcons.FaSearch className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-coffee-medium z-10 text-sm sm:text-base" />
                                     <input
                                         type="text"
                                         placeholder="Search by name, email, or message content..."
-                                        className="input input-bordered w-full pl-12 bg-white/50 backdrop-blur-sm border-coffee-medium rounded-xl focus:border-coffee-brown focus:ring-2 focus:ring-coffee-brown/20"
+                                        className="input input-bordered w-full pl-9 sm:pl-12 bg-white/50 backdrop-blur-sm border-coffee-medium text-sm sm:text-base rounded-lg sm:rounded-xl focus:border-coffee-brown focus:ring-2 focus:ring-coffee-brown/20"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
@@ -380,8 +380,8 @@ export default function MessagesPage() {
 
                             {/* Status Filter */}
                             <div className="flex flex-col">
-                                <label className="block text-coffee-dark font-semibold mb-3">Filter by Status</label>
-                                <div className="flex gap-2 flex-wrap">
+                                <label className="block text-coffee-dark font-semibold mb-2 sm:mb-3 text-sm sm:text-base">Filter by Status</label>
+                                <div className="flex gap-1 sm:gap-2 flex-wrap">
                                     {[
                                         { key: 'all', label: 'All', color: 'bg-coffee-light text-coffee-dark' },
                                         { key: 'new', label: 'New', color: 'bg-blue-100 text-blue-800' },
@@ -392,7 +392,7 @@ export default function MessagesPage() {
                                             key={filter.key}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className={`btn btn-sm border-0 bg-coffee-light ${filter.key === filterStatus ? filter.color : ' text-coffee-dark '} rounded-lg`}
+                                            className={`btn btn-xs sm:btn-sm border-0 ${filter.key === filterStatus ? filter.color : 'bg-coffee-light text-coffee-dark'} rounded-lg`}
                                             onClick={() => setFilterStatus(filter.key)}
                                         >
                                             {filter.label}
@@ -408,18 +408,18 @@ export default function MessagesPage() {
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="space-y-4"
+                    className="space-y-3 sm:space-y-4"
                 >
                     {filteredMessages.length === 0 ? (
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee rounded-2xl"
+                            className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee rounded-xl sm:rounded-2xl"
                         >
-                            <div className="card-body text-center py-16">
-                                <FaIcons.FaEnvelope className="text-6xl text-coffee-light mx-auto mb-4" />
-                                <h3 className="text-2xl text-coffee-dark mb-2">No messages found</h3>
-                                <p className="text-coffee-medium">
+                            <div className="card-body text-center py-8 sm:py-12 lg:py-16">
+                                <FaIcons.FaEnvelope className="text-4xl sm:text-6xl text-coffee-light mx-auto mb-3 sm:mb-4" />
+                                <h3 className="text-xl sm:text-2xl text-coffee-dark mb-1 sm:mb-2">No messages found</h3>
+                                <p className="text-coffee-medium text-sm sm:text-base">
                                     {searchQuery || filterStatus !== 'all' 
                                         ? 'Try adjusting your search or filter criteria' 
                                         : 'No contact messages received yet'
@@ -435,32 +435,32 @@ export default function MessagesPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
                                 whileHover={{ y: -2, scale: 1.01 }}
-                                className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee hover:shadow-coffee-lg rounded-2xl cursor-pointer transition-all duration-300"
+                                className="card bg-white/80 backdrop-blur-sm border-2 border-coffee-light shadow-coffee hover:shadow-coffee-lg rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300"
                                 onClick={() => setSelectedMessage(message)}
                             >
-                                <div className="card-body p-6">
-                                    <div className="flex items-start justify-between gap-4">
-                                        <div className="flex-1">
-                                            <div className="flex items-start gap-4 mb-3">
-                                                <div className="w-12 h-12 bg-coffee-brown rounded-xl flex items-center justify-center shrink-0">
-                                                    <FaIcons.FaUser className="text-white text-lg" />
+                                <div className="card-body p-4 sm:p-6">
+                                    <div className="flex items-start justify-between gap-3 sm:gap-4">
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-start gap-3 sm:gap-4 mb-3">
+                                                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-coffee-brown rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                                    <FaIcons.FaUser className="text-white text-xs sm:text-sm lg:text-lg" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 mb-2">
-                                                        <h3 className="font-bold text-coffee-dark text-lg truncate">
+                                                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-1 sm:gap-2 mb-2">
+                                                        <h3 className="font-bold text-coffee-dark text-base sm:text-lg truncate">
                                                             {message.name}
                                                         </h3>
                                                         {getStatusBadge(message.status)}
                                                     </div>
-                                                    <p className="text-coffee-dark font-semibold text-sm mb-1">
+                                                    <p className="text-coffee-dark font-semibold text-xs sm:text-sm mb-1 truncate">
                                                         {message.email}
                                                     </p>
-                                                    <p className="text-coffee-brown line-clamp-2 mb-3">
+                                                    <p className="text-coffee-brown line-clamp-2 text-sm sm:text-base mb-2 sm:mb-3">
                                                         {message.message}
                                                     </p>
-                                                    <div className="flex items-center gap-4 text-sm text-coffee-medium">
+                                                    <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-coffee-medium">
                                                         <span className="flex items-center gap-1">
-                                                            <FaIcons.FaClock />
+                                                            <FaIcons.FaClock className="shrink-0" />
                                                             {formatDate(message.createdAt)}
                                                         </span>
                                                     </div>
@@ -469,32 +469,32 @@ export default function MessagesPage() {
                                         </div>
                                         
                                         {/* Quick Actions */}
-                                        <div className="flex gap-2 shrink-0">
+                                        <div className="flex gap-1 sm:gap-2 shrink-0 mt-1">
                                             {message.status === 'new' && (
                                                 <motion.button
                                                     whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
-                                                    className="btn btn-sm bg-blue-100 border-blue-200 text-blue-800 hover:bg-blue-200"
+                                                    className="btn btn-xs sm:btn-sm bg-blue-100 border-blue-200 text-blue-800 hover:bg-blue-200"
                                                     onClick={(e) => {
                                                         e.stopPropagation()
                                                         handleMarkAsRead(message._id)
                                                     }}
                                                     title="Mark as read"
                                                 >
-                                                    <FaIcons.FaEnvelopeOpen />
+                                                    <FaIcons.FaEnvelopeOpen className="text-xs sm:text-sm" />
                                                 </motion.button>
                                             )}
                                             <motion.button
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
-                                                className="btn btn-sm bg-red-100 border-red-200 text-red-800 hover:bg-red-200"
+                                                className="btn btn-xs sm:btn-sm bg-red-100 border-red-200 text-red-800 hover:bg-red-200"
                                                 onClick={(e) => {
                                                     e.stopPropagation()
                                                     handleDeleteMessage(message._id)
                                                 }}
                                                 title="Delete message"
                                             >
-                                                <FaIcons.FaTrash />
+                                                <FaIcons.FaTrash className="text-xs sm:text-sm" />
                                             </motion.button>
                                         </div>
                                     </div>
@@ -512,23 +512,23 @@ export default function MessagesPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4"
                         onClick={() => setSelectedMessage(null)}
                     >
                         <motion.div
                             initial={{ scale: 0.9, y: 50 }}
                             animate={{ scale: 1, y: 0 }}
                             exit={{ scale: 0.9, y: 50 }}
-                            className="card bg-white w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl"
+                            className="card bg-white w-full max-w-2xl lg:max-w-4xl max-h-[90vh] overflow-hidden rounded-xl sm:rounded-2xl"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="card-body p-0">
                                 {/* Header */}
-                                <div className="bg-linear-to-r from-coffee-brown to-amber-700 p-6 text-white">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <div className="flex items-center gap-3">
-                                            <FaIcons.FaEnvelope className="text-2xl" />
-                                            <h2 className="text-2xl font-bold">Message Details</h2>
+                                <div className="bg-linear-to-r from-coffee-brown to-amber-700 p-4 sm:p-6 text-white">
+                                    <div className="flex items-center justify-between mb-3 sm:mb-4">
+                                        <div className="flex items-center gap-2 sm:gap-3">
+                                            <FaIcons.FaEnvelope className="text-xl sm:text-2xl" />
+                                            <h2 className="text-xl sm:text-2xl font-bold">Message Details</h2>
                                         </div>
                                         <motion.button
                                             whileHover={{ scale: 1.1 }}
@@ -539,31 +539,31 @@ export default function MessagesPage() {
                                             <FaIcons.FaTimes />
                                         </motion.button>
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                                         {getStatusBadge(selectedMessage.status)}
-                                        <span className="text-amber-100">
+                                        <span className="text-amber-100 text-sm sm:text-base">
                                             Received: {formatDate(selectedMessage.createdAt)}
                                         </span>
                                     </div>
                                 </div>
 
-                                <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
+                                <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 max-h-[60vh] overflow-y-auto">
                                     {/* Sender Info */}
-                                    <div className="flex items-center gap-4 p-4 bg-coffee-light/30 rounded-xl">
-                                        <div className="w-16 h-16 bg-coffee-brown rounded-xl flex items-center justify-center shrink-0">
-                                            <FaIcons.FaUser className="text-white text-xl" />
+                                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-coffee-light/30 rounded-lg sm:rounded-xl">
+                                        <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-coffee-brown rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                            <FaIcons.FaUser className="text-white text-base sm:text-lg lg:text-xl" />
                                         </div>
-                                        <div className="flex-1">
-                                            <p className="font-bold text-coffee-dark text-lg">{selectedMessage.name}</p>
-                                            <p className="text-coffee-brown font-semibold">{selectedMessage.email}</p>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-bold text-coffee-dark text-base sm:text-lg truncate">{selectedMessage.name}</p>
+                                            <p className="text-coffee-brown font-semibold text-sm sm:text-base truncate">{selectedMessage.email}</p>
                                         </div>
                                     </div>
 
                                     {/* Message Content */}
                                     <div>
-                                        <h3 className="font-bold text-coffee-dark mb-3 text-lg">Message Content</h3>
-                                        <div className="bg-gray-50 p-4 rounded-xl border border-coffee-light">
-                                            <p className="whitespace-pre-wrap text-coffee-dark leading-relaxed">
+                                        <h3 className="font-bold text-coffee-dark mb-2 sm:mb-3 text-base sm:text-lg">Message Content</h3>
+                                        <div className="bg-gray-50 p-3 sm:p-4 rounded-lg sm:rounded-xl border border-coffee-light">
+                                            <p className="whitespace-pre-wrap text-coffee-dark leading-relaxed text-sm sm:text-base">
                                                 {selectedMessage.message}
                                             </p>
                                         </div>
@@ -572,16 +572,16 @@ export default function MessagesPage() {
                                     {/* Previous Reply */}
                                     {selectedMessage.reply && (
                                         <div>
-                                            <h3 className="font-bold text-coffee-dark mb-3 text-lg flex items-center gap-2">
-                                                <FaIcons.FaCheckCircle className="text-green-500" />
+                                            <h3 className="font-bold text-coffee-dark mb-2 sm:mb-3 text-base sm:text-lg flex items-center gap-1 sm:gap-2">
+                                                <FaIcons.FaCheckCircle className="text-green-500 shrink-0" />
                                                 Your Reply
                                             </h3>
-                                            <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-xl">
-                                                <p className="whitespace-pre-wrap text-green-800 leading-relaxed">
+                                            <div className="bg-green-50 border-l-4 border-green-500 p-3 sm:p-4 rounded-lg sm:rounded-xl">
+                                                <p className="whitespace-pre-wrap text-green-800 leading-relaxed text-sm sm:text-base">
                                                     {selectedMessage.reply}
                                                 </p>
                                                 {selectedMessage.repliedAt && (
-                                                    <p className="text-green-600 text-sm mt-3">
+                                                    <p className="text-green-600 text-xs sm:text-sm mt-2 sm:mt-3">
                                                         Replied on: {formatDate(selectedMessage.repliedAt)}
                                                     </p>
                                                 )}
@@ -592,69 +592,69 @@ export default function MessagesPage() {
                                     {/* Reply Form */}
                                     {selectedMessage.status !== 'replied' && (
                                         <div>
-                                            <h3 className="font-bold text-coffee-dark mb-3 text-lg flex items-center gap-2">
-                                                <FaIcons.FaReply className="text-coffee-brown" />
+                                            <h3 className="font-bold text-coffee-dark mb-2 sm:mb-3 text-base sm:text-lg flex items-center gap-1 sm:gap-2">
+                                                <FaIcons.FaReply className="text-coffee-brown shrink-0" />
                                                 Send Reply
                                             </h3>
                                             <textarea
-                                                className="textarea textarea-bordered w-full h-32 bg-white/50 border-coffee-light rounded-xl focus:border-coffee-brown focus:ring-2 focus:ring-coffee-brown/20 resize-none"
+                                                className="textarea textarea-bordered w-full h-24 sm:h-32 bg-white/50 border-coffee-light text-sm sm:text-base rounded-lg sm:rounded-xl focus:border-coffee-brown focus:ring-2 focus:ring-coffee-brown/20 resize-none"
                                                 placeholder="Type your response here..."
                                                 value={replyText}
                                                 onChange={(e) => setReplyText(e.target.value)}
                                             ></textarea>
-                                            <div className="flex gap-3 justify-end mt-4">
+                                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-end mt-3 sm:mt-4">
                                                 {selectedMessage.status === 'new' && (
                                                     <motion.button
                                                         whileHover={{ scale: 1.05 }}
                                                         whileTap={{ scale: 0.95 }}
-                                                        className="btn bg-blue-100 border-blue-200 text-blue-800 hover:bg-blue-200"
+                                                        className="btn bg-blue-100 border-blue-200 text-blue-800 hover:bg-blue-200 text-sm sm:text-base py-2 sm:py-3 rounded-lg sm:rounded-xl order-2 sm:order-1"
                                                         onClick={() => handleMarkAsRead(selectedMessage._id)}
                                                     >
-                                                        <FaIcons.FaEnvelopeOpen className="mr-2" />
-                                                        Mark as Read
+                                                        <FaIcons.FaEnvelopeOpen className="mr-1 sm:mr-2 shrink-0" />
+                                                        <span className="truncate">Mark as Read</span>
                                                     </motion.button>
                                                 )}
                                                 <motion.button
                                                     whileHover={{ scale: 1.05 }}
                                                     whileTap={{ scale: 0.95 }}
-                                                    className="btn bg-coffee-brown border-coffee-brown hover:bg-coffee-dark text-white"
+                                                    className="btn bg-coffee-brown border-coffee-brown hover:bg-coffee-dark text-white text-sm sm:text-base py-2 sm:py-3 rounded-lg sm:rounded-xl order-1 sm:order-2"
                                                     onClick={handleSendReply}
                                                     disabled={!replyText.trim() || sendingReply}
                                                 >
                                                     {sendingReply ? (
-                                                        <div className="flex items-center gap-2">
-                                                            <div className="loading loading-spinner loading-sm"></div>
-                                                            Sending...
+                                                        <div className="flex items-center gap-1 sm:gap-2 justify-center">
+                                                            <div className="loading loading-spinner loading-xs sm:loading-sm"></div>
+                                                            <span className="truncate">Sending...</span>
                                                         </div>
                                                     ) : (
-                                                        <div className="flex items-center gap-2">
-                                                            <FaIcons.FaPaperPlane />
-                                                            Send Reply
+                                                        <div className="flex items-center gap-1 sm:gap-2 justify-center">
+                                                            <FaIcons.FaPaperPlane className="shrink-0" />
+                                                            <span className="truncate">Send Reply</span>
                                                         </div>
                                                     )}
                                                 </motion.button>
                                             </div>
-                                {/* Footer Actions */}
-                                <div className="border-t border-coffee-light mt-6">
-                                    <div className="flex justify-between items-center">
-                                        <p className="text-coffee-medium text-sm">
-                                            Message ID: {selectedMessage._id}
-                                        </p>
-                                        <motion.button
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="btn bg-red-100 border-red-200 text-red-800 hover:bg-red-200"
-                                            onClick={() => handleDeleteMessage(selectedMessage._id)}
-                                        >
-                                            <FaIcons.FaTrash className="mr-2" />
-                                            Delete Message
-                                        </motion.button>
-                                    </div>
-                                </div>
                                         </div>
                                     )}
-                                </div>
 
+                                    {/* Footer Actions */}
+                                    <div className="border-t border-coffee-light mt-4 sm:mt-6 pt-4 sm:pt-6">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+                                            <p className="text-coffee-medium text-xs sm:text-sm truncate">
+                                                Message ID: {selectedMessage._id}
+                                            </p>
+                                            <motion.button
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                className="btn bg-red-100 border-red-200 text-red-800 hover:bg-red-200 text-sm sm:text-base py-2 sm:py-3 rounded-lg sm:rounded-xl"
+                                                onClick={() => handleDeleteMessage(selectedMessage._id)}
+                                            >
+                                                <FaIcons.FaTrash className="mr-1 sm:mr-2 shrink-0" />
+                                                <span className="truncate">Delete Message</span>
+                                            </motion.button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </motion.div>
                     </motion.div>

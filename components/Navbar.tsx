@@ -108,7 +108,7 @@ export default function Navbar() {
           : 'bg-transparent py-3'
           }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-3">
+        <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-3">
           <div className="flex justify-between items-center h-14 lg:h-16">
             {/* Logo */}
             <motion.div
@@ -312,7 +312,7 @@ export default function Navbar() {
                       </div>
                     </div>
                     <motion.div
-                      className="absolute inset-0 border-2 border-coffee-brown/30 rounded-2xl"
+                      className="absolute inset-0  rounded-2xl"
                       animate={{ rotate: 360 }}
                       transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                     />
@@ -387,21 +387,6 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Footer */}
-              {/* <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-coffee-light/30 bg-white/80 backdrop-blur-sm">
-                <div className="text-center">
-                  <p className="text-coffee-medium text-sm font-medium mb-2">
-                    Let's brew something amazing together!
-                  </p>
-                  <motion.div
-                    className="text-3xl"
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    ☕
-                  </motion.div>
-                </div>
-              </div> */}
             </motion.div>
           </>
         )}

@@ -35,7 +35,6 @@ export default function Skills() {
     }
   }
 
-  // دالة للحصول على الأيقونة من الاسم
   const getIconComponent = (iconName: string) => {
     const IconComponent = (FaIcons as any)[iconName]
     return IconComponent || FaIcons.FaCoffee
@@ -57,7 +56,7 @@ export default function Skills() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
+        duration: 0.2,
         ease: "easeOut" as const
       }
     }

@@ -20,7 +20,6 @@ import {
   FaListAlt,
   FaSortNumericDown,
   FaCheckCircle,
-  // استيراد جميع الأيقونات المتاحة
   FaCoffee,
   FaMugHot,
   FaSeedling,
@@ -48,124 +47,21 @@ import {
   FaSun,
   FaMoon,
   FaGlobe,
-  FaMapMarkerAlt,
-  FaClock,
-  FaCalendar,
-  FaUser,
-  FaUsersCog,
   FaToolbox,
   FaCog,
   FaWrench,
-  FaHammer,
   FaBolt,
   FaShieldAlt,
-  FaLock,
-  FaUnlock,
-  FaEye,
-  FaEyeSlash,
-  FaSearch,
-  FaFilter,
-  FaSort,
-  FaArrowUp,
-  FaArrowDown,
-  FaExpand,
-  FaCompress,
-  FaDownload,
-  FaUpload,
-  FaShare,
-  FaLink,
-  FaExternalLinkAlt,
   FaBook,
-  FaBookOpen,
-  FaNewspaper,
-  FaPenFancy,
-  FaPencilAlt,
-  FaEraser,
-  FaHighlighter,
-  FaMarker,
-  FaStamp,
-  FaSignature,
   FaCertificate,
   FaMedal,
   FaTrophy,
   FaGem,
-  FaCube,
-  FaCubes,
-  FaNetworkWired,
-  FaProjectDiagram,
-  FaSitemap,
-  FaStream,
-  FaLayerGroup,
-  FaObjectGroup,
-  FaObjectUngroup,
-  FaCopy,
-  FaPaste,
-  FaCut,
-  FaClone,
-  FaTrashAlt,
-  FaRecycle,
-  FaRedo,
-  FaUndo,
-  FaHistory,
-  FaArchive,
-  FaInbox,
-  FaFolder,
-  FaFolderOpen,
-  FaFile,
-  FaFileAlt,
-  FaFileCode,
-  FaFileImage,
-  FaFileVideo,
-  FaFileAudio,
-  FaFilePdf,
-  FaFileWord,
-  FaFileExcel,
-  FaFilePowerpoint,
-  FaFileArchive,
-  FaFileContract,
-  FaFileDownload,
-  FaFileUpload,
-  FaFileExport,
-  FaFileImport,
-  FaSave as FaSaveIcon,
-  FaBookmark,
-  FaFlag,
-  FaBell,
-  FaEnvelope,
-  FaComment,
-  FaComments,
-  FaCommentDots,
-  FaCommentAlt,
-  FaQuoteLeft,
-  FaQuoteRight,
-  FaHashtag,
-  FaAt,
-  FaPercent,
-  FaUmbrella,
-  FaTint,
-  FaSnowflake,
-  FaFireExtinguisher,
-  FaSkull,
-  FaGhost,
-  FaRobot,
-  FaUserAstronaut,
-  FaUserNinja,
-  FaUserSecret,
   FaUserTie,
-  FaUserMd,
   FaUserGraduate,
-  FaUserClock,
-  FaUserCheck,
-  FaUserPlus,
-  FaUserMinus,
-  FaUserEdit,
-  FaUserSlash,
-  FaUserLock,
-  FaUserShield,
   FaUserCog
 } from 'react-icons/fa'
 
-// تعريف schema مع حقل الأيقونة
 const skillSchema = z.object({
   name: z.string().min(1, 'Skill name is required'),
   order: z.number().min(0).optional(),
@@ -174,7 +70,6 @@ const skillSchema = z.object({
 
 type Skill = z.infer<typeof skillSchema> & { _id?: string }
 
-// قائمة الأيقونات المتاحة مع أسمائها
 const availableIcons = [
   { name: 'FaCoffee', component: FaCoffee, label: 'Coffee' },
   { name: 'FaMugHot', component: FaMugHot, label: 'Mug' },
@@ -387,14 +282,14 @@ export default function SkillsManager() {
 
   if (status === 'loading' || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-coffee-light to-amber-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-coffee-light to-amber-50 p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-center"
         >
           <div className="loading loading-spinner loading-lg text-coffee-brown mb-4"></div>
-          <p className="text-coffee-dark">Loading Skills...</p>
+          <p className="text-coffee-dark text-lg">Loading Skills...</p>
         </motion.div>
       </div>
     )
@@ -427,27 +322,33 @@ export default function SkillsManager() {
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className=" backdrop-blur-md  border-b border-coffee-light sticky top-0 z-30"
+        className="backdrop-blur-md border-b border-coffee-light sticky top-0 z-30"
       >
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+
+            {/* الجزء الأيسر: زر الرجوع والعنوان */}
+            <div className="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05, x: -5 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => router.push('/admin/dashboard')}
-                className="btn btn-circle hover:bg-coffee-light text-coffee-dark"
+                className="btn btn-circle hover:bg-coffee-light text-coffee-dark shrink-0 w-10 h-10 sm:w-12 sm:h-12"
               >
-                <FaArrowLeft />
-
+                <FaArrowLeft className="text-sm sm:text-base" />
               </motion.button>
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-coffee-brown rounded-lg">
-                  <FaCogs className="text-white text-xl" />
+
+              <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+                <div className="p-1.5 sm:p-2 bg-coffee-brown rounded-lg shrink-0">
+                  <FaCogs className="text-white text-base sm:text-lg" />
                 </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-coffee-dark">Skills Management</h1>
-                  <p className="text-coffee-medium">Manage your professional skills</p>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-coffee-dark truncate">
+                    Skills Management
+                  </h1>
+                  <p className="text-coffee-medium text-xs sm:text-sm truncate">
+                    Manage your professional skills
+                  </p>
                 </div>
               </div>
             </div>
@@ -455,56 +356,62 @@ export default function SkillsManager() {
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="text-right"
+              className="text-center sm:text-right w-full sm:w-auto mt-2 sm:mt-0"
             >
-              <div className="stat-value text-coffee-brown text-center">{skills.length}</div>
-              <div className="stat-desc text-coffee-medium">Total Skills</div>
+              <div className="flex sm:flex-col items-center justify-between sm:justify-start gap-2">
+                <div className="stat-value text-coffee-brown text-base sm:text-lg lg:text-xl">
+                  {skills.length}
+                </div>
+                <div className="stat-desc text-coffee-medium text-xs sm:text-sm whitespace-nowrap">
+                  Total Skills
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
       </motion.div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-6xl mx-auto p-3 sm:p-4 lg:p-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-8"
+          className="space-y-4 sm:space-y-6 lg:space-y-8"
         >
           {/* Add/Edit Form */}
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -2 }}
-            className="card bg-white shadow-coffee-lg border border-coffee-light"
+            className="card bg-white shadow-lg border border-coffee-light rounded-xl sm:rounded-2xl"
           >
-            <div className="card-body p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-coffee-brown rounded-full">
+            <div className="card-body p-4 sm:p-6 lg:p-8">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                <div className="p-1.5 sm:p-2 bg-coffee-brown rounded-full shrink-0">
                   {editingSkill ? (
-                    <FaEdit className="text-white text-lg" />
+                    <FaEdit className="text-white text-sm sm:text-base" />
                   ) : (
-                    <FaPlus className="text-white text-lg" />
+                    <FaPlus className="text-white text-sm sm:text-base" />
                   )}
                 </div>
-                <h2 className="card-title text-2xl text-coffee-dark">
+                <h2 className="card-title text-lg sm:text-xl lg:text-2xl text-coffee-dark truncate">
                   {editingSkill ? 'Edit Skill' : 'Add New Skill'}
                 </h2>
               </div>
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                   {/* Skill Name */}
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text text-coffee-dark font-semibold text-lg">
+                    <label className="label p-0 mb-2 sm:mb-3">
+                      <span className="label-text text-coffee-dark font-semibold text-base sm:text-lg">
                         Skill Name *
                       </span>
                     </label>
                     <input
                       type="text"
                       {...register('name')}
-                      className={`input input-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-lg py-3 ${errors.name ? 'input-error border-2' : ''
+                      className={`input input-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-sm sm:text-base py-2 sm:py-3 rounded-lg ${errors.name ? 'input-error border-2' : ''
                         }`}
                       placeholder="e.g., Latte Art, Coffee Brewing"
                     />
@@ -514,9 +421,10 @@ export default function SkillsManager() {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="text-red-500 text-sm mt-2 flex items-center gap-2"
+                          className="text-red-500 text-xs sm:text-sm mt-1 sm:mt-2 flex items-center gap-1 sm:gap-2"
                         >
-                          ⚠️ {errors.name.message}
+                          <span className="shrink-0">⚠️</span>
+                          {errors.name.message}
                         </motion.p>
                       )}
                     </AnimatePresence>
@@ -524,21 +432,21 @@ export default function SkillsManager() {
 
                   {/* Display Order */}
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text text-coffee-dark font-semibold text-lg flex items-center gap-2">
-                        <FaSortNumericDown />
+                    <label className="label p-0 mb-2 sm:mb-3">
+                      <span className="label-text text-coffee-dark font-semibold text-base sm:text-lg flex items-center gap-1 sm:gap-2">
+                        <FaSortNumericDown className="shrink-0" />
                         Display Order
                       </span>
                     </label>
                     <input
                       type="number"
                       {...register('order', { valueAsNumber: true })}
-                      className="input input-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-lg py-3"
+                      className="input input-bordered w-full bg-coffee-light border-coffee-medium text-coffee-dark text-sm sm:text-base py-2 sm:py-3 rounded-lg"
                       placeholder="0"
                       min="0"
                     />
-                    <label className="label">
-                      <span className="label-text-alt text-coffee-medium">
+                    <label className="label p-0 mt-1 sm:mt-2">
+                      <span className="label-text-alt text-coffee-medium text-xs sm:text-sm">
                         Lower numbers appear first
                       </span>
                     </label>
@@ -547,22 +455,26 @@ export default function SkillsManager() {
 
                 {/* Icon Selection */}
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text text-coffee-dark font-semibold text-lg">
+                  <label className="label p-0 mb-2 sm:mb-3">
+                    <span className="label-text text-coffee-dark font-semibold text-base sm:text-lg">
                       Select Icon *
                     </span>
                   </label>
 
                   {/* Selected Icon Preview */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-coffee-light rounded-xl border-2 border-coffee-medium">
+                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    <div className="p-2 sm:p-3 bg-coffee-light rounded-lg sm:rounded-xl border-2 border-coffee-medium shrink-0">
                       {React.createElement(getIconComponent(selectedIcon), {
-                        className: "text-2xl text-coffee-brown"
+                        className: "text-xl sm:text-2xl text-coffee-brown"
                       })}
                     </div>
-                    <div>
-                      <p className="text-coffee-dark font-medium">Current Icon: {selectedIcon}</p>
-                      <p className="text-coffee-medium text-sm">Click the button below to change</p>
+                    <div className="min-w-0">
+                      <p className="text-coffee-dark font-medium text-sm sm:text-base truncate">
+                        Current Icon: {selectedIcon}
+                      </p>
+                      <p className="text-coffee-medium text-xs sm:text-sm">
+                        Click the button below to change
+                      </p>
                     </div>
                   </div>
 
@@ -572,7 +484,7 @@ export default function SkillsManager() {
                     onClick={() => setShowIconPicker(!showIconPicker)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="btn btn-outline border-coffee-medium text-coffee-dark hover:bg-coffee-light w-full py-3 text-lg"
+                    className="btn btn-outline border-coffee-medium text-coffee-dark hover:bg-coffee-light w-full py-2 sm:py-3 text-sm sm:text-base rounded-lg"
                   >
                     {showIconPicker ? 'Hide Icon Picker' : 'Choose Icon'}
                   </motion.button>
@@ -589,16 +501,16 @@ export default function SkillsManager() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="mt-4 p-4 bg-coffee-light rounded-xl border border-coffee-medium overflow-hidden"
+                        className="mt-3 sm:mt-4 p-3 sm:p-4 bg-coffee-light rounded-lg sm:rounded-xl border border-coffee-medium overflow-hidden"
                       >
-                        <h3 className="text-coffee-dark font-semibold mb-3">Choose an Icon:</h3>
-                        <div className="grid grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2 max-h-60 overflow-y-auto">
+                        <h3 className="text-coffee-dark font-semibold text-sm sm:text-base mb-2 sm:mb-3">Choose an Icon:</h3>
+                        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1 sm:gap-2 max-h-40 sm:max-h-48 overflow-y-auto">
                           {availableIcons.map((icon) => (
                             <motion.button
                               key={icon.name}
                               type="button"
                               onClick={() => handleIconSelect(icon.name)}
-                              className={`p-2 rounded-lg transition-all duration-200 ${selectedIcon === icon.name
+                              className={`p-1 sm:p-2 rounded transition-all duration-200 ${selectedIcon === icon.name
                                 ? 'bg-coffee-brown text-white shadow-lg'
                                 : 'bg-white text-coffee-dark hover:bg-coffee-medium hover:text-white'
                                 }`}
@@ -606,7 +518,7 @@ export default function SkillsManager() {
                               whileTap={{ scale: 0.9 }}
                               title={icon.label}
                             >
-                              <icon.component className="text-xl mx-auto" />
+                              <icon.component className="text-base sm:text-lg mx-auto" />
                             </motion.button>
                           ))}
                         </div>
@@ -620,32 +532,35 @@ export default function SkillsManager() {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="text-red-500 text-sm mt-2 flex items-center gap-2"
+                        className="text-red-500 text-xs sm:text-sm mt-1 sm:mt-2 flex items-center gap-1 sm:gap-2"
                       >
-                        ⚠️ {errors.icon.message}
+                        <span className="shrink-0">⚠️</span>
+                        {errors.icon.message}
                       </motion.p>
                     )}
                   </AnimatePresence>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pt-3 sm:pt-4">
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="btn btn-primary btn-lg flex items-center gap-2 bg-coffee-brown border-coffee-brown hover:bg-coffee-dark"
+                    className="btn btn-primary flex items-center gap-1 sm:gap-2 bg-coffee-brown border-coffee-brown hover:bg-coffee-dark text-white text-sm sm:text-base py-2 sm:py-3 rounded-lg order-2 sm:order-1"
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="loading loading-spinner loading-sm"></div>
-                        Saving...
+                        <div className="loading loading-spinner loading-xs sm:loading-sm"></div>
+                        <span className="truncate">Saving...</span>
                       </>
                     ) : (
                       <>
-                        <FaSave />
-                        {editingSkill ? 'Update Skill' : 'Add Skill'}
+                        <FaSave className="shrink-0" />
+                        <span className="truncate">
+                          {editingSkill ? 'Update Skill' : 'Add Skill'}
+                        </span>
                       </>
                     )}
                   </motion.button>
@@ -661,10 +576,10 @@ export default function SkillsManager() {
                       }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="btn btn-outline btn-lg border-coffee-medium text-coffee-dark hover:bg-coffee-light flex items-center gap-2"
+                      className="btn btn-outline border-coffee-medium text-coffee-dark hover:bg-coffee-light flex items-center gap-1 sm:gap-2 text-sm sm:text-base py-2 sm:py-3 rounded-lg order-1 sm:order-2"
                     >
-                      <FaTimes />
-                      Cancel
+                      <FaTimes className="shrink-0" />
+                      <span className="truncate">Cancel</span>
                     </motion.button>
                   )}
                 </div>
@@ -675,19 +590,19 @@ export default function SkillsManager() {
           {/* Skills List */}
           <motion.div
             variants={itemVariants}
-            className="card bg-white shadow-coffee-lg border border-coffee-light"
+            className="card bg-white shadow-lg border border-coffee-light rounded-xl sm:rounded-2xl"
           >
-            <div className="card-body p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-coffee-brown rounded-full">
-                    <FaListAlt className="text-white text-lg" />
+            <div className="card-body p-4 sm:p-6 lg:p-8">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-0">
+                  <div className="p-1.5 sm:p-2 bg-coffee-brown rounded-full shrink-0">
+                    <FaListAlt className="text-white text-sm sm:text-base" />
                   </div>
-                  <h2 className="card-title text-2xl text-coffee-dark">
+                  <h2 className="card-title text-lg sm:text-xl lg:text-2xl text-coffee-dark whitespace-nowrap">
                     Skills List
                   </h2>
                 </div>
-                <div className="badge badge-primary badge-lg bg-coffee-brown border-coffee-brown text-white p-4">
+                <div className="badge bg-coffee-brown border-coffee-brown text-white px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm whitespace-nowrap">
                   {skills.length} {skills.length === 1 ? 'Skill' : 'Skills'}
                 </div>
               </div>
@@ -698,91 +613,161 @@ export default function SkillsManager() {
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12"
+                      className="text-center py-8 sm:py-12"
                     >
-                      <div className="text-6xl mb-4">📝</div>
-                      <h3 className="text-xl text-coffee-dark mb-2">No Skills Yet</h3>
-                      <p className="text-coffee-medium">
+                      <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">📝</div>
+                      <h3 className="text-lg sm:text-xl text-coffee-dark mb-1 sm:mb-2">No Skills Yet</h3>
+                      <p className="text-coffee-medium text-sm sm:text-base">
                         Add your first skill using the form above
                       </p>
                     </motion.div>
                   ) : (
-                    <motion.table
-                      variants={containerVariants}
-                      initial="hidden"
-                      animate="visible"
-                      className="table table-zebra w-full"
-                    >
-                      <thead>
-                        <tr className="bg-coffee-light">
-                          <th className="text-coffee-dark font-bold text-lg">Icon</th>
-                          <th className="text-coffee-dark font-bold text-lg">Skill Name</th>
-                          <th className="text-coffee-dark font-bold text-lg">Order</th>
-                          <th className="text-coffee-dark font-bold text-lg">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                    <div className="block sm:hidden">
+                      {/* Mobile View - Cards */}
+                      <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="space-y-3"
+                      >
                         {skills.map((skill, index) => {
                           const IconComponent = getIconComponent(skill.icon)
                           return (
-                            <motion.tr
-                              key={skill._id}
+                            <motion.div
+                            key={`skill-mobile-${index}`}
                               variants={itemVariants}
-                              whileHover={{
-                                backgroundColor: "rgba(250, 243, 228, 0.5)",
-                                scale: 1.01
-                              }}
-                              className="border-b border-coffee-light"
+                              whileHover={{ scale: 1.01 }}
+                              className="bg-coffee-light/50 rounded-lg p-3 sm:p-4 border border-coffee-light"
                             >
-                              <td className="py-4">
-                                <div className="flex justify-center">
-                                  <div className="p-2 bg-coffee-light rounded-lg">
-                                    <IconComponent className="text-coffee-brown text-xl" />
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 bg-coffee-light rounded-lg shrink-0">
+                                  <IconComponent className="text-coffee-brown text-lg" />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <FaCheckCircle className="text-green-500 shrink-0" />
+                                    <h3 className="font-bold text-coffee-dark text-sm sm:text-base truncate">
+                                      {skill.name}
+                                    </h3>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="badge badge-outline border-coffee-medium text-coffee-dark text-xs">
+                                      Order: {skill.order || 0}
+                                    </span>
                                   </div>
                                 </div>
-                              </td>
-                              <td className="font-semibold text-coffee-dark text-lg py-4">
-                                <div className="flex items-center gap-3">
-                                  <FaCheckCircle className="text-green-500" />
-                                  {skill.name}
-                                </div>
-                              </td>
-                              <td className="text-coffee-medium text-lg py-4">
-                                <span className="badge badge-outline border-coffee-medium text-coffee-dark p-3">
-                                  {skill.order || 0}
-                                </span>
-                              </td>
-                              <td className="py-4">
-                                <div className="flex gap-2">
-                                  <motion.button
-                                    onClick={() => {
-                                      setEditingSkill(skill)
-                                      reset(skill)
-                                      setSelectedIcon(skill.icon)
-                                    }}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="btn btn-sm btn-outline border-coffee-brown text-coffee-dark hover:bg-coffee-brown hover:text-white flex items-center gap-2"
-                                  >
-                                    <FaEdit />
-                                    Edit
-                                  </motion.button>
-                                  <motion.button
-                                    onClick={() => skill._id && deleteSkill(skill._id)}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="btn btn-sm btn-error bg-red-500 border-red-500 hover:bg-red-600 text-white flex items-center gap-2"
-                                  >
-                                    <FaTrash />
-                                    Delete
-                                  </motion.button>
-                                </div>
-                              </td>
-                            </motion.tr>
+                              </div>
+                              <div className="flex gap-2 justify-end">
+                                <motion.button
+                                  onClick={() => {
+                                    setEditingSkill(skill)
+                                    reset(skill)
+                                    setSelectedIcon(skill.icon)
+                                  }}
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                                  className="btn btn-xs sm:btn-sm btn-outline border-coffee-brown text-coffee-dark hover:bg-coffee-brown hover:text-white flex items-center gap-1"
+                                >
+                                  <FaEdit className="text-xs" />
+                                  Edit
+                                </motion.button>
+                                <motion.button
+                                  onClick={() => skill._id && deleteSkill(skill._id)}
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                                  className="btn btn-xs sm:btn-sm bg-red-500 border-red-500 hover:bg-red-600 text-white flex items-center gap-1"
+                                >
+                                  <FaTrash className="text-xs" />
+                                  Delete
+                                </motion.button>
+                              </div>
+                            </motion.div>
                           )
                         })}
-                      </tbody>
-                    </motion.table>
+                      </motion.div>
+                    </div>
+                  )}
+                  
+                  {/* Desktop View - Table */}
+                  {skills.length > 0 && (
+                    <div className="hidden sm:block">
+                      <motion.table
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="table table-zebra w-full"
+                      >
+                        <thead>
+                          <tr className="bg-coffee-light">
+                            <th className="text-coffee-dark font-bold text-base sm:text-lg">Icon</th>
+                            <th className="text-coffee-dark font-bold text-base sm:text-lg">Skill Name</th>
+                            <th className="text-coffee-dark font-bold text-base sm:text-lg">Order</th>
+                            <th className="text-coffee-dark font-bold text-base sm:text-lg">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {skills.map((skill, index) => {
+                            const IconComponent = getIconComponent(skill.icon)
+                            return (
+                              <motion.tr
+                                key={`skill-desktop-${index}`}
+                                variants={itemVariants}
+                                whileHover={{
+                                  backgroundColor: "rgba(250, 243, 228, 0.5)",
+                                  scale: 1.01
+                                }}
+                                className="border-b border-coffee-light"
+                              >
+                                <td className="py-3 sm:py-4">
+                                  <div className="flex justify-center">
+                                    <div className="p-2 bg-coffee-light rounded-lg">
+                                      <IconComponent className="text-coffee-brown text-lg sm:text-xl" />
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="font-semibold text-coffee-dark text-base sm:text-lg py-3 sm:py-4">
+                                  <div className="flex items-center gap-2 sm:gap-3">
+                                    <FaCheckCircle className="text-green-500 shrink-0" />
+                                    <span className="truncate">{skill.name}</span>
+                                  </div>
+                                </td>
+                                <td className="text-coffee-medium text-base sm:text-lg py-3 sm:py-4">
+                                  <span className="badge badge-outline border-coffee-medium text-coffee-dark p-2 sm:p-3 text-sm sm:text-base">
+                                    {skill.order || 0}
+                                  </span>
+                                </td>
+                                <td className="py-3 sm:py-4">
+                                  <div className="flex gap-1 sm:gap-2">
+                                    <motion.button
+                                      onClick={() => {
+                                        setEditingSkill(skill)
+                                        reset(skill)
+                                        setSelectedIcon(skill.icon)
+                                      }}
+                                      whileHover={{ scale: 1.05 }}
+                                      whileTap={{ scale: 0.95 }}
+                                      className="btn btn-sm btn-outline border-coffee-brown text-coffee-dark hover:bg-coffee-brown hover:text-white flex items-center gap-1 sm:gap-2"
+                                    >
+                                      <FaEdit className="text-xs sm:text-sm" />
+                                      Edit
+                                    </motion.button>
+                                    <motion.button
+                                      onClick={() => skill._id && deleteSkill(skill._id)}
+                                      whileHover={{ scale: 1.05 }}
+                                      whileTap={{ scale: 0.95 }}
+                                      className="btn btn-sm bg-red-500 border-red-500 hover:bg-red-600 text-white flex items-center gap-1 sm:gap-2"
+                                    >
+                                      <FaTrash className="text-xs sm:text-sm" />
+                                      Delete
+                                    </motion.button>
+                                  </div>
+                                </td>
+                              </motion.tr>
+                            )
+                          })}
+                        </tbody>
+                      </motion.table>
+                    </div>
                   )}
                 </AnimatePresence>
               </div>

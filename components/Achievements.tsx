@@ -233,7 +233,7 @@ export default function Achievements() {
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <FaIcons.FaStar className="mr-2" />
-              Start Your Coffee Journey
+              Start Coffee Journey
             </motion.button>
           </div>
         </motion.div>

@@ -45,7 +45,7 @@ export default function Hero() {
   return (
     <section className="hero min-h-screen pb-16 relative overflow-hidden bg-linear-to-br from-coffee-light via-amber-50 to-coffee-light">
       {/* خلفية ديكورية */}
-      <div className="absolute inset-0 opacity-30">
+      <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-2 text-6xl">☕</div>
         <div className="absolute top-10 right-20 text-4xl">🌱</div>
         <div className="absolute bottom-10 left-5 text-5xl">✨</div>
