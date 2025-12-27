@@ -55,6 +55,8 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <script src="//cdn.conveythis.com/javascript/conveythis.js?api_key=pub_b1dd0430348fc0f0c1b681d477ad8126"></script>
+
       </head>
       <body className={inter.className}>
         <SessionProvider>
