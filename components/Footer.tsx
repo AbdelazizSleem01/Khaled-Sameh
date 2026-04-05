@@ -2,11 +2,22 @@
 
 import { motion } from 'framer-motion'
 import { FaHeart } from 'react-icons/fa'
+import { useEffect, useState } from 'react'
 
 export default function Footer() {
+    const [mounted, setMounted] = useState(false)
+    const [currentYear, setCurrentYear] = useState<number | null>(null)
+    const [lastUpdated, setLastUpdated] = useState<string | null>(null)
 
-
-    const currentYear = new Date().getFullYear()
+    useEffect(() => {
+        // eslint-disable-next-line -- Intentional: client-side only values to prevent hydration mismatch
+        setMounted(true)
+        setCurrentYear(new Date().getFullYear())
+        setLastUpdated(new Date().toLocaleDateString('en-US', { 
+            month: 'long', 
+            year: 'numeric' 
+        }))
+    }, [])
 
     return (
         <footer className="bg-linear-to-t from-coffee-dark  to-coffee-dark text-white py-8 backdrop-blur-lg border-t border-coffee-light/20">
@@ -34,7 +45,7 @@ export default function Footer() {
                             </a>
                         </p>
                         <p className="text-coffee-lighter text-sm mt-2 text-center">
-                            © {currentYear} All rights reserved.
+                            {mounted && `© ${currentYear} All rights reserved.`}
                         </p>
                     </motion.div>
 
@@ -49,12 +60,11 @@ export default function Footer() {
                     className="mt-8 pt-6 border-t border-coffee-light/10 text-center"
                 >
                    
-                    <p className="text-coffee-light text-xs mt-2">
-                        Last updated: {new Date().toLocaleDateString('en-US', { 
-                            month: 'long', 
-                            year: 'numeric' 
-                        })}
-                    </p>
+                    {mounted && (
+                        <p className="text-coffee-light text-xs mt-2">
+                            Last updated: {lastUpdated}
+                        </p>
+                    )}
                 </motion.div>
             </div>
         </footer>
