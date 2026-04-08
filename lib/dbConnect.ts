@@ -9,8 +9,12 @@ declare global {
 
 const MONGODB_URI = process.env.MONGODB_URI
 
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
+// Check if MONGODB_URI is defined
+export function getMongoURI(): string {
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI is not defined')
+  }
+  return MONGODB_URI
 }
 
 const cached = global.mongooseConn || (global.mongooseConn = { conn: null, promise: null })

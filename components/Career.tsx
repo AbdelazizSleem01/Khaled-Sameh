@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence, easeOut } from 'framer-motion'
+import { motion, easeOut } from 'framer-motion'
 import * as FaIcons from 'react-icons/fa'
 
 interface CareerItem {
@@ -49,7 +49,9 @@ export default function Career() {
 
   const calculateDuration = (startDate: string, endDate?: string, isCurrent?: boolean) => {
     const start = new Date(startDate)
-    const end = isCurrent ? new Date() : new Date(endDate || '')
+    // Use a fixed reference date for SSR consistency, only use current date on client
+    const now = typeof window !== 'undefined' ? new Date() : new Date('2024-01-01')
+    const end = isCurrent ? now : new Date(endDate || '')
 
     const years = end.getFullYear() - start.getFullYear()
     const months = end.getMonth() - start.getMonth()
@@ -326,7 +328,7 @@ export default function Career() {
               Ready for the Next Chapter?
             </h3>
             <p className="text-coffee-medium mb-6">
-              With years of dedicated experience in the coffee industry, I'm always excited
+              With years of dedicated experience in the coffee industry, I&apos;m always excited
               to take on new challenges and contribute to exceptional coffee experiences.
             </p>
             <motion.button
@@ -336,7 +338,7 @@ export default function Career() {
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <FaIcons.FaHandshake className="mr-2" />
-              Let's Work Together
+              Let&apos;s Work Together
             </motion.button>
           </div>
         </motion.div>

@@ -5,6 +5,21 @@ import Image from 'next/image'
 import { motion, AnimatePresence, easeOut, easeIn } from 'framer-motion'
 import * as FaIcons from 'react-icons/fa'
 
+function ClientDate({ date }: { date: string }) {
+  const [formatted, setFormatted] = useState<string>('')
+
+  useEffect(() => {
+    // eslint-disable-next-line -- Intentional: client-side date formatting to prevent hydration mismatch
+    setFormatted(new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }))
+  }, [date])
+
+  return <>{formatted || date}</>
+}
+
 interface Certificate {
   _id: string
   title: string
@@ -221,11 +236,7 @@ export default function Certificates() {
                             className="text-coffee-medium text-lg flex items-center justify-center gap-2"
                           >
                             <FaIcons.FaCalendarAlt className="text-coffee-brown" />
-                            {new Date(certificates[currentIndex].date).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
+                            <ClientDate date={certificates[currentIndex].date} />
                           </motion.p>
                         )}
                       </div>
