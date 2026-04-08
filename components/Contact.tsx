@@ -77,7 +77,7 @@ export default function Contact() {
   const contactInfo = [
     { icon: 'FaEnvelope', label: 'Email', value: 'ksameh764@gmail.com', url: 'mailto:ksameh764@gmail.com' },
     { icon: 'FaPhone', label: 'Phone', value: '+201024529364', url: 'tel:+201024529364' },
-    { icon: 'FaMapMarkerAlt', label: 'Location', value: 'Benha, Qalyubia, Egypt', url: '#' }
+    { icon: 'FaMapMarkerAlt', label: 'Location', value: 'Benha, Qalyubia, Egypt', url: 'https://www.google.com/maps/search/?api=1&query=Benha%2C%20Qalyubia%2C%20Egypt' }
   ]
 
   return (

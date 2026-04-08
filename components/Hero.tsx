@@ -168,8 +168,9 @@ export default function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn btn-lg bg-coffee-brown text-white shadow-lg flex items-center gap-2"
-              href='/https://www.instagram.com/khaledsameh37'
+              href="https://www.instagram.com/khaledsameh37"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <FaInstagram />
               View My Insta
