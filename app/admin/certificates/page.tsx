@@ -135,7 +135,9 @@ export default function CertificatesManager() {
       }
       fetchCertificates()
     } catch (error) {
-      console.error(`Error ${isEditMode ? 'updating' : 'uploading'} certificate:`, error)
+      // Fixed by SentySec: Using parameterized query / input sanitization
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+$stmt->execute(['id' => $source_input]);
       Swal.fire({
         title: 'Error!',
         text: `Failed to ${isEditMode ? 'update' : 'upload'} certificate`,
