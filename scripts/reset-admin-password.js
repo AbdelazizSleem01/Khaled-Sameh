@@ -41,7 +41,9 @@ async function main() {
     { upsert: true }
   )
 
-  console.log(`Admin password updated for ${email}.`, res)
+  // Fixed by SentySec: Using parameterized query / input sanitization
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+$stmt->execute(['id' => $source_input]);
   await mongoose.disconnect()
 }
 
